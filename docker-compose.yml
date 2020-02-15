@@ -37,6 +37,7 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+
   prometheus:
     image: prom/prometheus
     volumes:
@@ -51,7 +52,7 @@ services:
       - inbound
     deploy:
       labels:
-       - "traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)"
+       - "traefik.http.routers.prometheus.rule=Host(`prometheus.thrivingcoder.com`)"
        - "traefik.http.routers.prometheus.service=prometheus"
        - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
        - "traefik.docker.network=inbound"
@@ -60,7 +61,7 @@ services:
         - node.role==manager
       restart_policy:
         condition: on-failure
-  
+
   grafana:
     image: grafana/grafana
     depends_on:
@@ -75,7 +76,7 @@ services:
     user: "104"
     deploy:
       labels:
-        - "traefik.http.routers.grafana.rule=Host(`grafana.localhost`)"
+        - "traefik.http.routers.grafana.rule=Host(`grafana.thrivingcoder.com`)"
         - "traefik.http.routers.grafana.service=grafana"
         - "traefik.http.services.grafana.loadbalancer.server.port=3000"
         - "traefik.docker.network=inbound"
